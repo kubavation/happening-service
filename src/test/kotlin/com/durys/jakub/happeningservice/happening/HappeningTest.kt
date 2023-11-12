@@ -2,6 +2,7 @@ package com.durys.jakub.happeningservice.happening
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
 import java.util.*
 
 class HappeningTest {
@@ -9,7 +10,8 @@ class HappeningTest {
 
     @Test
     fun shouldSuccessfullyCreateHappening() {
-        assertDoesNotThrow { Happening(HappeningId(UUID.randomUUID()), HappeningNumber("123"), Place("Warsaw")) }
+        assertDoesNotThrow { Happening(HappeningId(UUID.randomUUID()), Number("123"), Place("Warsaw"),
+                Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1))) }
     }
 
 }

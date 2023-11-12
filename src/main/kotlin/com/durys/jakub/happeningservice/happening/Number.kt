@@ -1,4 +1,4 @@
 package com.durys.jakub.happeningservice.happening
 
-data class HappeningNumber(val value: String) {
+data class Number(val value: String) {
 }
