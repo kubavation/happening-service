@@ -9,7 +9,7 @@ class HappeningTest {
 
     @Test
     fun shouldSuccessfullyCreateHappening() {
-        assertDoesNotThrow { Happening(HappeningId(UUID.randomUUID())) }
+        assertDoesNotThrow { Happening(HappeningId(UUID.randomUUID()), HappeningNumber("123"), Place("Warsaw")) }
     }
 
 }
