@@ -1,5 +1,6 @@
 package com.durys.jakub.happeningservice.happening
 
+import com.durys.jakub.happeningservice.happening.domain.Period
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
