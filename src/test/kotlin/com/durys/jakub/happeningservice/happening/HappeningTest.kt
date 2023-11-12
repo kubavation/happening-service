@@ -12,7 +12,7 @@ class HappeningTest {
 
     @Test
     fun shouldSuccessfullyCreateHappening() {
-        assertDoesNotThrow { Happening(HappeningId(UUID.randomUUID()), Number("123"), Place("Warsaw"),
+        assertDoesNotThrow { Happening(HappeningId(UUID.randomUUID()), Place("Warsaw"),
                 Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1))) }
     }
 
