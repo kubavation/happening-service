@@ -12,7 +12,8 @@ internal class InMemoryHappeningRepository: HappeningRepository {
         return db[id] ?: throw RuntimeException("Happening not found")
     }
 
-    override fun save(happening: Happening) {
+    override fun save(happening: Happening): HappeningId {
         db[happening.id()] = happening
+        return happening.id()
     }
 }
