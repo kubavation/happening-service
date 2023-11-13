@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class HappeningConfiguration {
+internal class HappeningConfiguration {
 
     @Bean
     fun happeningRepository(): HappeningRepository = InMemoryHappeningRepository()
