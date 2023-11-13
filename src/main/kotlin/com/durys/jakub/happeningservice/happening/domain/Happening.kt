@@ -1,21 +1,24 @@
 package com.durys.jakub.happeningservice.happening.domain
 
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningArchived
+import com.durys.jakub.happeningservice.happening.domain.event.HappeningOpened
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
 internal class Happening(private val id: HappeningId, private val place: Place,
                          private val period: Period, private val happeningNumber: HappeningNumber, private var participants: MutableList<ParticipantId> = mutableListOf()) {
-    
-    var state = State.New
 
+    var state = State.New
+    private var openTill: LocalDate? = null
 
     enum class State {
         New,
-        Invited,
+        Open,
         Closed,
+        Completed,
         Archived
     }
 
@@ -23,8 +26,16 @@ internal class Happening(private val id: HappeningId, private val place: Place,
             : this(id, place, period, HappeningNumber(period, place), participants)
 
 
-    fun invite(participants: List<ParticipantId>) {
-        this.participants = participants.toMutableList()
+    fun sendInvitationsTo(participants: List<ParticipantId>, validTo: LocalDate): HappeningOpened {
+
+        if (state != State.New) {
+            throw RuntimeException("Invalid state for send invitations operation")
+        }
+
+        state = State.Open
+        openTill = validTo
+
+        return HappeningOpened(UUID.randomUUID(), Instant.now(), happeningNumber, participants, validTo)
     }
 
     fun archive(): HappeningArchived {
@@ -43,11 +54,9 @@ internal class Happening(private val id: HappeningId, private val place: Place,
 
 
     companion object Factory {
-
         fun create(place: String, from: LocalDateTime, to: LocalDateTime, participants: MutableList<ParticipantId>): Happening {
             return Happening(HappeningId(UUID.randomUUID()), Place(place), Period(from, to), participants)
         }
-
     }
 
 }
