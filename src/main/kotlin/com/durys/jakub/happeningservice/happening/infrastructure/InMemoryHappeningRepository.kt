@@ -4,7 +4,7 @@ import com.durys.jakub.happeningservice.happening.domain.Happening
 import com.durys.jakub.happeningservice.happening.domain.HappeningId
 import com.durys.jakub.happeningservice.happening.domain.HappeningRepository
 
-class InMemoryHappeningRepository: HappeningRepository {
+internal class InMemoryHappeningRepository: HappeningRepository {
 
     private val db = HashMap<HappeningId, Happening>()
 

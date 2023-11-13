@@ -2,7 +2,7 @@ package com.durys.jakub.happeningservice.happening.domain
 
 import java.util.*
 
-class Happening(private val id: HappeningId, private val place: Place,
+internal class Happening(private val id: HappeningId, private val place: Place,
                 private val period: Period, private var participants: MutableList<Participant> = mutableListOf()) {
 
     val number = Number(period, place)
@@ -16,4 +16,4 @@ class Happening(private val id: HappeningId, private val place: Place,
     fun id() = id
 }
 
-data class HappeningId(val value: UUID)
+internal data class HappeningId(val value: UUID)

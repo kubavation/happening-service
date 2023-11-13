@@ -2,7 +2,7 @@ package com.durys.jakub.happeningservice.happening.domain
 
 import java.time.LocalDateTime
 
-data class Period(val from: LocalDateTime, val to: LocalDateTime) {
+internal data class Period(val from: LocalDateTime, val to: LocalDateTime) {
 
     init {
         Validator.test(from, to)

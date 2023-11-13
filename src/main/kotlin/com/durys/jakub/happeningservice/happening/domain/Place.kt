@@ -1,6 +1,6 @@
 package com.durys.jakub.happeningservice.happening.domain
 
-data class Place(val name: String) {
+internal data class Place(val name: String) {
 
     init {
         Validator.test(name)
