@@ -23,6 +23,10 @@ internal class Happening(private val id: HappeningId, private val place: Place,
         this.participants = participants.toMutableList()
     }
 
+    fun archive() {
+        state = State.Archived
+    }
+
 
     fun id() = id
     fun state() = state
