@@ -7,9 +7,8 @@ import java.time.LocalDateTime
 import java.util.*
 
 internal class Happening(private val id: HappeningId, private val place: Place,
-                private val period: Period, private var participants: MutableList<ParticipantId> = mutableListOf()) {
-
-    val number = Number(period, place)
+                         private val period: Period, private val happeningNumber: HappeningNumber, private var participants: MutableList<ParticipantId> = mutableListOf()) {
+    
     var state = State.New
 
 
@@ -19,6 +18,9 @@ internal class Happening(private val id: HappeningId, private val place: Place,
         Closed,
         Archived
     }
+
+    constructor(id: HappeningId, place: Place, period: Period, participants: MutableList<ParticipantId> = mutableListOf())
+            : this(id, place, period, HappeningNumber(period, place), participants)
 
 
     fun invite(participants: List<ParticipantId>) {
