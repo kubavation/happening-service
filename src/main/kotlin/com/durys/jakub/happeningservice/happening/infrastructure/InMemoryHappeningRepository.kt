@@ -13,6 +13,6 @@ class InMemoryHappeningRepository: HappeningRepository {
     }
 
     override fun save(happening: Happening) {
-        db[happening.id] = happening
+        db[happening.id()] = happening
     }
 }
