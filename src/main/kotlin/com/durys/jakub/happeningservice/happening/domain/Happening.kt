@@ -1,5 +1,6 @@
 package com.durys.jakub.happeningservice.happening.domain
 
+import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import java.time.LocalDateTime
 import java.util.*
 
