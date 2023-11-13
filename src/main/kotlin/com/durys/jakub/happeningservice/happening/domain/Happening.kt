@@ -49,6 +49,7 @@ internal class Happening(private val id: HappeningId, private val place: Place,
     }
 
 
+
     fun id() = id
     fun state() = state
 
