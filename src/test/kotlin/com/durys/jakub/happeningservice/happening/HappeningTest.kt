@@ -16,4 +16,16 @@ class HappeningTest {
                 Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1))) }
     }
 
+    @Test
+    fun shouldArchiveHappening() {
+
+        val happening = Happening(HappeningId(UUID.randomUUID()), Place("Warsaw"),
+                Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)))
+
+        val result = happening.archive()
+
+        assertEquals(happening.id(), result.happeningId)
+        assertEquals(Happening.State.Archived, happening.state())
+    }
+
 }
