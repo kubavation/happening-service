@@ -7,7 +7,9 @@ import com.durys.jakub.happeningservice.happening.domain.Period
 import com.durys.jakub.happeningservice.happening.domain.Place
 import com.durys.jakub.happeningservice.happening.domain.command.ArchiveHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.InitiateHappeningCommand
+import com.durys.jakub.happeningservice.happening.domain.command.OpenHappeningCommand
 import com.durys.jakub.happeningservice.happening.infrastructure.InMemoryHappeningRepository
+import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
@@ -50,6 +52,24 @@ class HappeningApplicationServiceTest {
 
         val loaded = happeningRepository.load(happening.id())
         assertEquals(Happening.State.Archived, loaded.state)
+        verify(eventsPublisher, times(1)).publish(any())
+    }
+
+    @Test
+    fun shouldOpenHappening() {
+
+        val openTill = LocalDate.of(2023, 10, 10)
+        val participants = listOf(ParticipantId(UUID.randomUUID()), ParticipantId(UUID.randomUUID()))
+        val happening = Happening(HappeningId(UUID.randomUUID()), Place("Warsaw"),
+                Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)))
+        happeningRepository.save(happening)
+
+
+        happeningApplicationService.handle(OpenHappeningCommand(happening.id(), participants, openTill));
+
+
+        val loaded = happeningRepository.load(happening.id())
+        assertEquals(Happening.State.Open, loaded.state)
         verify(eventsPublisher, times(1)).publish(any())
     }
 
