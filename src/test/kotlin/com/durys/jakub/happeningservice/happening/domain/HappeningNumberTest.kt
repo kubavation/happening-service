@@ -15,7 +15,7 @@ class HappeningNumberTest {
 
         val happeningNumber = HappeningNumber(period, place)
 
-        assertEquals("Warsaw [2023-01-01-2023-01-03]", happeningNumber.value)
+        assertEquals("Warsaw [2023-01-01-2023-01-03]", happeningNumber.value())
     }
 
 }
