@@ -21,6 +21,8 @@ internal class Invitation(private val id: InvitationId, private val validTill: L
     fun id() = id
     fun validTill() = validTill
     fun confirmation() = reply.confirmation
+    fun happeningNumber() = id.happeningNumber
+    fun participant() = id.participantId
 
 
     companion object Factory {
