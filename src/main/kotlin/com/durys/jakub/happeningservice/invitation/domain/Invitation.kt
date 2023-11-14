@@ -7,8 +7,20 @@ import java.time.LocalDate
 internal class Invitation(private val id: InvitationId, private val validTill: LocalDate,
                           private var reply: InvitationReply) {
 
+
+    fun reply(confirmation: Boolean) {
+
+        if (LocalDate.now().isAfter(validTill)) {
+            throw RuntimeException("Cannot reply to this invitation")
+        }
+
+        reply = InvitationReply(confirmation)
+    }
+
+
     fun id() = id
     fun validTill() = validTill
+    fun confirmation() = reply.confirmation
 
 
     companion object Factory {
