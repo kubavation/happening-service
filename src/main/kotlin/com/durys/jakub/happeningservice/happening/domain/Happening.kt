@@ -1,6 +1,7 @@
 package com.durys.jakub.happeningservice.happening.domain
 
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningArchived
+import com.durys.jakub.happeningservice.happening.domain.event.HappeningClosed
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningOpened
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import java.time.Instant
@@ -48,6 +49,16 @@ internal class Happening(private val id: HappeningId, private val place: Place,
         return HappeningArchived(UUID.randomUUID(), Instant.now(), id)
     }
 
+    fun close(closedAt: LocalDate): HappeningClosed {
+
+        if (state != State.Open) {
+            throw RuntimeException("Invalid state for close operation")
+        }
+
+        state = State.Closed
+        openTill = closedAt
+        return HappeningClosed(UUID.randomUUID(), Instant.now(), happeningNumber, closedAt)
+    }
 
 
     fun id() = id
