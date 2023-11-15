@@ -15,7 +15,7 @@ class HappeningFactoryTest {
 
         val happening = Happening.create(place, from, to, mutableListOf())
 
-        assertEquals(Happening.State.New, happening.state)
+        assertEquals(Happening.State.New, happening.state())
     }
 
 }

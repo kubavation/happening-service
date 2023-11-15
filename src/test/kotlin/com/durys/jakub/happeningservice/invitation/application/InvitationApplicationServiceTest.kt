@@ -5,6 +5,7 @@ import com.durys.jakub.happeningservice.happening.domain.Period
 import com.durys.jakub.happeningservice.happening.domain.Place
 import com.durys.jakub.happeningservice.invitation.domain.Invitation
 import com.durys.jakub.happeningservice.invitation.domain.InvitationId
+import com.durys.jakub.happeningservice.invitation.domain.InvitationNumber
 import com.durys.jakub.happeningservice.invitation.domain.command.ReplyToInvitationCommand
 import com.durys.jakub.happeningservice.invitation.infrastructure.InMemoryInvitationRepository
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
@@ -23,11 +24,11 @@ class InvitationApplicationServiceTest {
 
         val participantId = ParticipantId(UUID.randomUUID())
         val invitation = addInvitation(participantId)
-        val command = ReplyToInvitationCommand(participantId, invitation.happeningNumber(), true)
+        val command = ReplyToInvitationCommand(InvitationNumber(invitation.number()), true)
 
         invitationApplicationService.handle(command)
 
-        val saved = invitationRepository.load(InvitationId(command.participantId, command.happeningNumber))
+        val saved = invitationRepository.load(InvitationNumber(invitation.number()))
         assertTrue(saved.confirmation())
     }
 

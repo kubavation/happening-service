@@ -1,6 +1,7 @@
 package com.durys.jakub.happeningservice.happening.domain
 
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningArchived
+import com.durys.jakub.happeningservice.happening.domain.event.HappeningClosed
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningOpened
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import java.time.Instant
@@ -8,10 +9,11 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
-internal class Happening(private val id: HappeningId, private val place: Place,
-                         private val period: Period, private val happeningNumber: HappeningNumber, private var participants: MutableList<ParticipantId> = mutableListOf()) {
+internal class Happening(private val id: HappeningId, private val place: Place, private val period: Period,
+                         private val happeningNumber: HappeningNumber,
+                         private var participants: MutableList<ParticipantId> = mutableListOf(),
+                         private var state: State = State.New) {
 
-    var state = State.New
     private var openTill: LocalDate? = null
 
     enum class State {
@@ -22,8 +24,9 @@ internal class Happening(private val id: HappeningId, private val place: Place,
         Archived
     }
 
-    constructor(id: HappeningId, place: Place, period: Period, participants: MutableList<ParticipantId> = mutableListOf())
-            : this(id, place, period, HappeningNumber(period, place), participants)
+    constructor(id: HappeningId, place: Place, period: Period,
+                participants: MutableList<ParticipantId> = mutableListOf(), state: State = State.New)
+            : this(id, place, period, HappeningNumber(period, place), participants, state)
 
 
     fun sendInvitationsTo(participants: List<ParticipantId>, validTo: LocalDate): HappeningOpened {
@@ -48,6 +51,16 @@ internal class Happening(private val id: HappeningId, private val place: Place,
         return HappeningArchived(UUID.randomUUID(), Instant.now(), id)
     }
 
+    fun close(closedAt: LocalDate): HappeningClosed {
+
+        if (state != State.Open) {
+            throw RuntimeException("Invalid state for close operation")
+        }
+
+        state = State.Closed
+        openTill = closedAt
+        return HappeningClosed(UUID.randomUUID(), Instant.now(), happeningNumber, closedAt)
+    }
 
 
     fun id() = id
