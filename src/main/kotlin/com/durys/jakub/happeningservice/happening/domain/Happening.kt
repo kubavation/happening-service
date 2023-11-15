@@ -24,8 +24,9 @@ internal class Happening(private val id: HappeningId, private val place: Place, 
         Archived
     }
 
-    constructor(id: HappeningId, place: Place, period: Period, participants: MutableList<ParticipantId> = mutableListOf())
-            : this(id, place, period, HappeningNumber(period, place), participants)
+    constructor(id: HappeningId, place: Place, period: Period,
+                participants: MutableList<ParticipantId> = mutableListOf(), state: State = State.New)
+            : this(id, place, period, HappeningNumber(period, place), participants, state)
 
 
     fun sendInvitationsTo(participants: List<ParticipantId>, validTo: LocalDate): HappeningOpened {

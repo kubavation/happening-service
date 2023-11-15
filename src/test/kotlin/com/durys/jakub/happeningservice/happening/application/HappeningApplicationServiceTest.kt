@@ -6,6 +6,7 @@ import com.durys.jakub.happeningservice.happening.domain.HappeningId
 import com.durys.jakub.happeningservice.happening.domain.Period
 import com.durys.jakub.happeningservice.happening.domain.Place
 import com.durys.jakub.happeningservice.happening.domain.command.ArchiveHappeningCommand
+import com.durys.jakub.happeningservice.happening.domain.command.CloseHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.InitiateHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.OpenHappeningCommand
 import com.durys.jakub.happeningservice.happening.infrastructure.InMemoryHappeningRepository
@@ -73,5 +74,22 @@ class HappeningApplicationServiceTest {
         verify(eventsPublisher, times(1)).publish(any())
     }
 
+
+    @Test
+    fun shouldCloseHappening() {
+
+        val happening = Happening(HappeningId(UUID.randomUUID()), Place("Warsaw"),
+                Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)), state = Happening.State.Open)
+        val closedAt = LocalDate.of(2023, 10, 9)
+        happeningRepository.save(happening)
+
+
+        happeningApplicationService.handle(CloseHappeningCommand(happening.id(), closedAt))
+
+
+        val loaded = happeningRepository.load(happening.id())
+        assertEquals(Happening.State.Closed, loaded.state())
+        verify(eventsPublisher, times(1)).publish(any())
+    }
 
 }
