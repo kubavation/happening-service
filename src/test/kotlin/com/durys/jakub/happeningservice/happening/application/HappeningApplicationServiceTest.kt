@@ -51,7 +51,7 @@ class HappeningApplicationServiceTest {
 
 
         val loaded = happeningRepository.load(happening.id())
-        assertEquals(Happening.State.Archived, loaded.state)
+        assertEquals(Happening.State.Archived, loaded.state())
         verify(eventsPublisher, times(1)).publish(any())
     }
 
@@ -69,8 +69,9 @@ class HappeningApplicationServiceTest {
 
 
         val loaded = happeningRepository.load(happening.id())
-        assertEquals(Happening.State.Open, loaded.state)
+        assertEquals(Happening.State.Open, loaded.state())
         verify(eventsPublisher, times(1)).publish(any())
     }
+
 
 }

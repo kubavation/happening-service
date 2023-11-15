@@ -9,10 +9,11 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
-internal class Happening(private val id: HappeningId, private val place: Place,
-                         private val period: Period, private val happeningNumber: HappeningNumber, private var participants: MutableList<ParticipantId> = mutableListOf()) {
+internal class Happening(private val id: HappeningId, private val place: Place, private val period: Period,
+                         private val happeningNumber: HappeningNumber,
+                         private var participants: MutableList<ParticipantId> = mutableListOf(),
+                         private var state: State = State.New) {
 
-    var state = State.New
     private var openTill: LocalDate? = null
 
     enum class State {
