@@ -5,7 +5,7 @@ import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import java.time.LocalDate
 import java.util.UUID
 
-internal class Invitation(private val id: InvitationId, private val validTill: LocalDate,
+internal class Invitation(private val id: InvitationId, private var validTill: LocalDate,
                           private val invitationNumber: InvitationNumber,
                           private var reply: InvitationReply) {
 
@@ -18,6 +18,11 @@ internal class Invitation(private val id: InvitationId, private val validTill: L
 
         reply = InvitationReply(confirmation)
     }
+
+    fun close(closedAt: LocalDate) {
+        validTill = closedAt
+    }
+
 
 
     fun id() = id

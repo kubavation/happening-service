@@ -54,5 +54,22 @@ class InvitationTest {
         assertEquals("Cannot reply to this invitation", exception.message);
     }
 
+    @Test
+    fun shouldCloseInvitation() {
+
+        val participantId = ParticipantId(UUID.randomUUID())
+        val happeningNumber = HappeningNumber(
+                Period(LocalDate.of(2023, 1, 1,).atStartOfDay(),
+                        LocalDate.of(2023, 1, 2,).atStartOfDay()), Place("Warsaw"))
+        val validTill = LocalDate.now().plusDays(2)
+
+        val invitation = Invitation.create(participantId, happeningNumber, validTill)
+        val closedAt = LocalDate.of(2023, 1, 1)
+
+        invitation.close(closedAt)
+
+        assertEquals(closedAt, invitation.validTill())
+    }
+
 
 }
