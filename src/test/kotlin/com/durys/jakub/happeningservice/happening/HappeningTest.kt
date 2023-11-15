@@ -61,4 +61,17 @@ class HappeningTest {
         assertEquals(closedAt, result.closedAt)
     }
 
+    @Test
+    fun shouldThrowExceptionWhileClosingHappening_whenIsNotOpened() {
+
+        val happening = Happening(HappeningId(UUID.randomUUID()), Place("Warsaw"),
+                Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)))
+        val participants = listOf(ParticipantId(UUID.randomUUID()), ParticipantId(UUID.randomUUID()))
+        val validTo = LocalDate.of(2023, 10 ,10)
+        val closedAt = LocalDate.of(2023, 10, 9);
+
+        val exception = assertThrows(RuntimeException::class.java) { happening.close(closedAt) }
+        assertEquals("Invalid state for close operation", exception.message)
+    }
+
 }
