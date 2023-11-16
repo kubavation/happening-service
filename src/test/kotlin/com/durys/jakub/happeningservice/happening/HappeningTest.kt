@@ -84,8 +84,21 @@ class HappeningTest {
         val options = setOf(InvitationOption("Question1", true))
 
         happening.appendPattern(title, description, options)
-        
+
         assertNotNull(happening.invitationPattern())
+    }
+
+    @Test
+    fun shouldThrowExceptionWhileAppendInvitationPattern_whenStateIsNotNew() {
+
+        val happening = Happening(HappeningId(UUID.randomUUID()), Place("Warsaw"),
+                Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)), Happening.State.Closed)
+        val title = "Title"
+        val description = "Description"
+        val options = setOf(InvitationOption("Question1", true))
+
+        val exception = assertThrows(RuntimeException::class.java) { happening.appendPattern(title, description, options) }
+        assertEquals("Invalid state for appending invitation pattern", exception.message)
     }
 
 }
