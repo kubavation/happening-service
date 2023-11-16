@@ -13,7 +13,7 @@ class HappeningFactoryTest {
         val from = LocalDate.of(2023, 1, 1).atStartOfDay()
         val to = LocalDate.of(2023, 1, 3).atStartOfDay()
 
-        val happening = Happening.create(place, from, to, mutableListOf())
+        val happening = Happening.create(place, from, to)
 
         assertEquals(Happening.State.New, happening.state())
     }

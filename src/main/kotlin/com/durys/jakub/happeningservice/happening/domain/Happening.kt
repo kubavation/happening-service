@@ -10,9 +10,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 internal class Happening(private val id: HappeningId, private val place: Place, private val period: Period,
-                         private val happeningNumber: HappeningNumber,
-                         private var participants: MutableList<ParticipantId> = mutableListOf(),
-                         private var state: State = State.New) {
+                         private val happeningNumber: HappeningNumber, private var state: State = State.New) {
 
     private var openTill: LocalDate? = null
 
@@ -24,9 +22,8 @@ internal class Happening(private val id: HappeningId, private val place: Place, 
         Archived
     }
 
-    constructor(id: HappeningId, place: Place, period: Period,
-                participants: MutableList<ParticipantId> = mutableListOf(), state: State = State.New)
-            : this(id, place, period, HappeningNumber(period, place), participants, state)
+    constructor(id: HappeningId, place: Place, period: Period, state: State = State.New)
+            : this(id, place, period, HappeningNumber(period, place), state)
 
 
     fun sendInvitationsTo(participants: List<ParticipantId>, validTo: LocalDate): HappeningOpened {
@@ -68,8 +65,8 @@ internal class Happening(private val id: HappeningId, private val place: Place, 
 
 
     companion object Factory {
-        fun create(place: String, from: LocalDateTime, to: LocalDateTime, participants: MutableList<ParticipantId>): Happening {
-            return Happening(HappeningId(UUID.randomUUID()), Place(place), Period(from, to), participants)
+        fun create(place: String, from: LocalDateTime, to: LocalDateTime): Happening {
+            return Happening(HappeningId(UUID.randomUUID()), Place(place), Period(from, to))
         }
     }
 

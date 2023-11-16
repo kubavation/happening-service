@@ -17,7 +17,7 @@ internal class HappeningApplicationService(private val happeningRepository: Happ
 
     fun handle(command: InitiateHappeningCommand): HappeningId {
 
-        val happening = Happening.create(command.place, command.from, command.to, command.participantsIds)
+        val happening = Happening.create(command.place, command.from, command.to)
 
         return happeningRepository.save(happening)
     }

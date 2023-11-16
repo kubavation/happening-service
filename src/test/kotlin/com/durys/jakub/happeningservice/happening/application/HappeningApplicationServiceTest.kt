@@ -33,7 +33,7 @@ class HappeningApplicationServiceTest {
 
         val command = InitiateHappeningCommand("Warsaw",
                 LocalDate.of(2023, 1, 1).atStartOfDay(),
-                LocalDate.of(2023, 1, 3).atStartOfDay(), mutableListOf())
+                LocalDate.of(2023, 1, 3).atStartOfDay())
 
         val happeningId = happeningApplicationService.handle(command)
 
