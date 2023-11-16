@@ -4,6 +4,7 @@ import com.durys.jakub.happeningservice.events.DomainEventPublisher
 import com.durys.jakub.happeningservice.happening.domain.Happening
 import com.durys.jakub.happeningservice.happening.domain.HappeningId
 import com.durys.jakub.happeningservice.happening.domain.HappeningRepository
+import com.durys.jakub.happeningservice.happening.domain.command.*
 import com.durys.jakub.happeningservice.happening.domain.command.ArchiveHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.CloseHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.InitiateHappeningCommand
@@ -47,6 +48,13 @@ internal class HappeningApplicationService(private val happeningRepository: Happ
         happening.close(command.closedAt)
                 .also { eventsPublisher.publish(it) }
 
+    }
+
+    fun handle(command: AppendInvitationPatternCommand) {
+
+        val happening = happeningRepository.load(command.happeningId)
+
+        happening.appendPattern(command.title, command.description, command.options)
     }
 
 
