@@ -1,10 +1,13 @@
 package com.durys.jakub.happeningservice.happening.application
 
+import com.durys.jakub.happeningservice.content.InvitationOption
 import com.durys.jakub.happeningservice.events.DomainEventPublisher
 import com.durys.jakub.happeningservice.happening.domain.Happening
 import com.durys.jakub.happeningservice.happening.domain.HappeningId
 import com.durys.jakub.happeningservice.happening.domain.Period
 import com.durys.jakub.happeningservice.happening.domain.Place
+import com.durys.jakub.happeningservice.happening.domain.command.*
+import com.durys.jakub.happeningservice.happening.domain.command.AppendInvitationPatternCommand
 import com.durys.jakub.happeningservice.happening.domain.command.ArchiveHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.CloseHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.InitiateHappeningCommand
@@ -33,7 +36,7 @@ class HappeningApplicationServiceTest {
 
         val command = InitiateHappeningCommand("Warsaw",
                 LocalDate.of(2023, 1, 1).atStartOfDay(),
-                LocalDate.of(2023, 1, 3).atStartOfDay(), mutableListOf())
+                LocalDate.of(2023, 1, 3).atStartOfDay())
 
         val happeningId = happeningApplicationService.handle(command)
 
@@ -90,6 +93,22 @@ class HappeningApplicationServiceTest {
         val loaded = happeningRepository.load(happening.id())
         assertEquals(Happening.State.Closed, loaded.state())
         verify(eventsPublisher, times(1)).publish(any())
+    }
+
+
+    @Test
+    fun shouldAppendInvitationPattern() {
+
+        val happening = Happening(HappeningId(UUID.randomUUID()), Place("Warsaw"),
+                Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)))
+        happeningRepository.save(happening)
+
+        happeningApplicationService.handle(AppendInvitationPatternCommand(happening.id(), "Title",
+                "Description", setOf(InvitationOption("Question1", true))))
+
+
+        val loaded = happeningRepository.load(happening.id())
+        assertNotNull(loaded.invitationPattern())
     }
 
 }
