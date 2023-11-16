@@ -1,5 +1,6 @@
 package com.durys.jakub.happeningservice.happening
 
+import com.durys.jakub.happeningservice.content.InvitationOption
 import com.durys.jakub.happeningservice.happening.domain.*
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.*
@@ -66,14 +67,25 @@ class HappeningTest {
 
         val happening = Happening(HappeningId(UUID.randomUUID()), Place("Warsaw"),
                 Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)))
-        val participants = listOf(ParticipantId(UUID.randomUUID()), ParticipantId(UUID.randomUUID()))
-        val validTo = LocalDate.of(2023, 10 ,10)
-        val closedAt = LocalDate.of(2023, 10, 9);
+        val closedAt = LocalDate.of(2023, 10, 9)
 
         val exception = assertThrows(RuntimeException::class.java) { happening.close(closedAt) }
         assertEquals("Invalid state for close operation", exception.message)
     }
 
 
+    @Test
+    fun shouldAppendInvitationPattern() {
+
+        val happening = Happening(HappeningId(UUID.randomUUID()), Place("Warsaw"),
+                Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)))
+        val title = "Title"
+        val description = "Description"
+        val options = setOf(InvitationOption("Question1", true))
+
+        happening.appendPattern(title, description, options)
+        
+        assertNotNull(happening.invitationPattern())
+    }
 
 }

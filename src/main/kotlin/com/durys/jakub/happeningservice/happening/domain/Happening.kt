@@ -1,5 +1,6 @@
 package com.durys.jakub.happeningservice.happening.domain
 
+import com.durys.jakub.happeningservice.content.InvitationOption
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningArchived
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningClosed
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningOpened
@@ -27,6 +28,15 @@ internal class Happening(private val id: HappeningId, private val place: Place, 
     constructor(id: HappeningId, place: Place, period: Period, state: State = State.New)
             : this(id, place, period, HappeningNumber(period, place), null, state)
 
+
+    fun appendPattern(title: String, description: String, options: Set<InvitationOption>) {
+
+        if (state != State.New) {
+            throw RuntimeException("Invalid state for appending invitation pattern")
+        }
+
+        invitationPattern = HappeningInvitationPattern(title, description, options)
+    }
 
     fun sendInvitationsTo(participants: List<ParticipantId>, validTo: LocalDate): HappeningOpened {
 
@@ -64,6 +74,7 @@ internal class Happening(private val id: HappeningId, private val place: Place, 
 
     fun id() = id
     fun state() = state
+    fun invitationPattern() = invitationPattern
 
 
     companion object Factory {
