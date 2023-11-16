@@ -47,7 +47,7 @@ internal class Happening(private val id: HappeningId, private val place: Place, 
         state = State.Open
         openTill = validTo
 
-        return HappeningOpened(UUID.randomUUID(), Instant.now(), happeningNumber, participants, validTo)
+        return HappeningOpened(UUID.randomUUID(), Instant.now(), happeningNumber, participants, validTo, invitationPattern) //todo fix
     }
 
     fun archive(): HappeningArchived {
