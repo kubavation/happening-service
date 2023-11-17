@@ -1,14 +1,14 @@
 package com.durys.jakub.happeningservice.invitation.domain
 
 import com.durys.jakub.happeningservice.happening.domain.HappeningNumber
-import com.durys.jakub.happeningservice.sharedkernel.HappeningInvitationPattern
+import com.durys.jakub.happeningservice.sharedkernel.InvitationContent
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import java.time.LocalDate
 import java.util.UUID
 
 internal class Invitation(private val id: InvitationId, private var validTill: LocalDate,
                           private val invitationNumber: InvitationNumber,
-                          private val invitationContent: HappeningInvitationPattern,
+                          private val invitationContent: InvitationContent,
                           private var reply: InvitationReply? = null) {
 
 
@@ -38,7 +38,7 @@ internal class Invitation(private val id: InvitationId, private var validTill: L
 
     companion object Factory {
         fun create(participantId: ParticipantId, happeningNumber: HappeningNumber,
-                   invitationContent: HappeningInvitationPattern, validTill: LocalDate): Invitation {
+                   invitationContent: InvitationContent, validTill: LocalDate): Invitation {
             return Invitation(InvitationId(participantId, happeningNumber), validTill, InvitationNumber(UUID.randomUUID()), invitationContent)
         }
     }

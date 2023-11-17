@@ -2,11 +2,12 @@ package com.durys.jakub.happeningservice.sharedkernel
 
 import java.util.UUID
 
-internal data class InvitationPatternId(val id: UUID)
+internal data class InvitationContentId(val id: UUID)
 
-internal data class HappeningInvitationPattern(val id: InvitationPatternId, val title: String, val description: String, val options: Set<InvitationQuestion>) {
+internal data class InvitationContent(val id: InvitationContentId, val title: String, val description: String, val options: Set<InvitationQuestion>) {
 
     init {
+
         val confirmationOptions = options.filter { it.type == OptionType.Confirmation }
 
         if (confirmationOptions.isEmpty()) {
@@ -20,7 +21,7 @@ internal data class HappeningInvitationPattern(val id: InvitationPatternId, val 
     }
 
     constructor(title: String, description: String, options: Set<InvitationQuestion>)
-            : this(InvitationPatternId(UUID.randomUUID()), title, description, options)
+            : this(InvitationContentId(UUID.randomUUID()), title, description, options)
 
 }
 

@@ -8,8 +8,8 @@ internal class InvitationPatternFactory {
     //todo db
     companion object {
 
-        fun default(title: String): HappeningInvitationPattern {
-            return HappeningInvitationPattern(InvitationPatternId(UUID.randomUUID()), title, "Answer some questions",
+        fun default(title: String): InvitationContent {
+            return InvitationContent(InvitationContentId(UUID.randomUUID()), title, "Answer some questions",
                     setOf(
                         InvitationQuestion(InvitationQuestionId(UUID.randomUUID()),
                                 "Are you going to attend?", true, OptionType.Confirmation))
