@@ -1,6 +1,6 @@
 package com.durys.jakub.happeningservice.happening.application
 
-import com.durys.jakub.happeningservice.sharedkernel.InvitationOption
+import com.durys.jakub.happeningservice.sharedkernel.InvitationQuestion
 import com.durys.jakub.happeningservice.events.DomainEventPublisher
 import com.durys.jakub.happeningservice.happening.domain.Happening
 import com.durys.jakub.happeningservice.happening.domain.HappeningId
@@ -103,7 +103,7 @@ class HappeningApplicationServiceTest {
         happeningRepository.save(happening)
 
         happeningApplicationService.handle(AppendInvitationPatternCommand(happening.id(), "Title",
-                "Description", setOf(InvitationOption("Question1", true))))
+                "Description", setOf(InvitationQuestion("Question1", true))))
 
 
         val loaded = happeningRepository.load(happening.id())
