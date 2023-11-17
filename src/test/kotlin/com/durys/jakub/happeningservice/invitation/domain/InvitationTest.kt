@@ -4,6 +4,7 @@ import com.durys.jakub.happeningservice.happening.domain.HappeningNumber
 import com.durys.jakub.happeningservice.happening.domain.Period
 import com.durys.jakub.happeningservice.happening.domain.Place
 import com.durys.jakub.happeningservice.pattern.InvitationPatternFactory
+import com.durys.jakub.happeningservice.sharedkernel.OptionType
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test
@@ -36,9 +37,17 @@ class InvitationTest {
         val validTill = LocalDate.now().plusDays(2)
         val happeningInvitationPattern = InvitationPatternFactory.default("title")
 
+        val confirmationOption = happeningInvitationPattern.options.find { it.type == OptionType.Confirmation }!!
+
         val invitation = Invitation.create(participantId, happeningNumber, happeningInvitationPattern, validTill)
 
-        assertDoesNotThrow { invitation.reply(emptySet()) }
+        assertDoesNotThrow {
+            invitation.reply(
+                    setOf(
+                        InvitationAnswer(confirmationOption.id, true)
+                    )
+            )
+        }
         assertTrue(invitation.confirmation())
     }
 

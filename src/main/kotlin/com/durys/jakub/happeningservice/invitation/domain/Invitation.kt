@@ -33,6 +33,7 @@ internal class Invitation(private val id: InvitationId, private var validTill: L
     fun happeningNumber() = id.happeningNumber
     fun participant() = id.participantId
     fun number() = invitationNumber.value
+    fun invitationContent() = invitationContent
 
 
     companion object Factory {
