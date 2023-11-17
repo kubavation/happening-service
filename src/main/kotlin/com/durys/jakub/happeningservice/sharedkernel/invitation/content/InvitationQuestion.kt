@@ -8,8 +8,14 @@ internal data class InvitationQuestion(val id: InvitationQuestionId,
                                        val question: String, val required: Boolean,
                                        val type: OptionType, val availableOptions: Set<String> = emptySet()) {
 
-    constructor(question: String, required: Boolean, type: OptionType)
-            : this(InvitationQuestionId(UUID.randomUUID()), question, required, type)
+    init {
+        if (type == OptionType.Select && availableOptions.isEmpty()) {
+            throw RuntimeException("Options not provided")
+        }
+    }
+
+    constructor(question: String, required: Boolean, type: OptionType, availableOptions: Set<String> = emptySet())
+            : this(InvitationQuestionId(UUID.randomUUID()), question, required, type, availableOptions)
 
 }
 
