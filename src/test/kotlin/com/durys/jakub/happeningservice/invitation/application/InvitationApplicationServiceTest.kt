@@ -25,7 +25,7 @@ class InvitationApplicationServiceTest {
 
         val participantId = ParticipantId(UUID.randomUUID())
         val invitation = addInvitation(participantId)
-        val command = ReplyToInvitationCommand(InvitationNumber(invitation.number()), true)
+        val command = ReplyToInvitationCommand(InvitationNumber(invitation.number()), setOf())
 
         invitationApplicationService.handle(command)
 

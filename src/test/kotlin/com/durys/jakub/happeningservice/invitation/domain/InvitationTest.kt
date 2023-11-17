@@ -38,7 +38,7 @@ class InvitationTest {
 
         val invitation = Invitation.create(participantId, happeningNumber, happeningInvitationPattern, validTill)
 
-        assertDoesNotThrow { invitation.reply(InvitationReply(true, emptySet())) }
+        assertDoesNotThrow { invitation.reply(emptySet()) }
         assertTrue(invitation.confirmation())
     }
 
@@ -54,7 +54,7 @@ class InvitationTest {
 
         val invitation = Invitation.create(participantId, happeningNumber, happeningInvitationPattern, validTill)
 
-        val exception = assertThrows(RuntimeException::class.java) { invitation.reply(InvitationReply(true, emptySet())) }
+        val exception = assertThrows(RuntimeException::class.java) { invitation.reply(emptySet()) }
         assertEquals("Cannot reply to this invitation", exception.message);
     }
 

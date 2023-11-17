@@ -6,6 +6,19 @@ internal data class InvitationPatternId(val id: UUID)
 
 internal data class HappeningInvitationPattern(val id: InvitationPatternId, val title: String, val description: String, val options: Set<InvitationQuestion>) {
 
+    init {
+        val confirmationOptions = options.filter { it.type == OptionType.Confirmation }
+
+        if (confirmationOptions.isEmpty()) {
+            throw RuntimeException("Confirmation question not provided")
+        }
+
+        if (confirmationOptions.size > 1) {
+            throw RuntimeException("It has to be only one confirmation question")
+        }
+
+    }
+
     constructor(title: String, description: String, options: Set<InvitationQuestion>)
             : this(InvitationPatternId(UUID.randomUUID()), title, description, options)
 
@@ -21,5 +34,6 @@ internal data class InvitationQuestion(val id: InvitationQuestionId, val questio
 }
 
 internal enum class OptionType {
-    Confirmation
+    Confirmation,
+    Other
 }
