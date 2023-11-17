@@ -12,13 +12,13 @@ internal class Invitation(private val id: InvitationId, private var validTill: L
                           private var reply: InvitationReply? = null) {
 
 
-    fun reply(invitationReply: InvitationReply) {
+    fun reply(answers: Set<InvitationAnswer>) {
 
         if (LocalDate.now().isAfter(validTill)) {
             throw RuntimeException("Cannot reply to this invitation")
         }
 
-        reply = invitationReply
+        reply = InvitationReplyResolver().resolve(answers, invitationContent)
     }
 
     fun close(closedAt: LocalDate) {
