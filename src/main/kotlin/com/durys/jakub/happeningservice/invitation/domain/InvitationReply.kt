@@ -1,3 +1,7 @@
 package com.durys.jakub.happeningservice.invitation.domain
 
-internal data class InvitationReply(val confirmation: Boolean)
+import com.durys.jakub.happeningservice.sharedkernel.InvitationQuestionId
+
+internal data class InvitationReply(val confirmation: Boolean, val answers: Set<InvitationAnswer>)
+
+internal data class InvitationAnswer(val questionId: InvitationQuestionId, val answer: String)

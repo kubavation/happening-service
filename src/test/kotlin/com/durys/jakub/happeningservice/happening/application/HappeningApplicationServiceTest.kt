@@ -12,6 +12,7 @@ import com.durys.jakub.happeningservice.happening.domain.command.CloseHappeningC
 import com.durys.jakub.happeningservice.happening.domain.command.InitiateHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.OpenHappeningCommand
 import com.durys.jakub.happeningservice.happening.infrastructure.InMemoryHappeningRepository
+import com.durys.jakub.happeningservice.sharedkernel.OptionType
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -103,7 +104,7 @@ class HappeningApplicationServiceTest {
         happeningRepository.save(happening)
 
         happeningApplicationService.handle(AppendInvitationPatternCommand(happening.id(), "Title",
-                "Description", setOf(InvitationQuestion("Question1", true))))
+                "Description", setOf(InvitationQuestion("Question1", true, OptionType.Confirmation))))
 
 
         val loaded = happeningRepository.load(happening.id())

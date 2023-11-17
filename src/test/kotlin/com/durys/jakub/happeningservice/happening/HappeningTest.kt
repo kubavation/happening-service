@@ -2,6 +2,7 @@ package com.durys.jakub.happeningservice.happening
 
 import com.durys.jakub.happeningservice.sharedkernel.InvitationQuestion
 import com.durys.jakub.happeningservice.happening.domain.*
+import com.durys.jakub.happeningservice.sharedkernel.OptionType
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -81,7 +82,7 @@ class HappeningTest {
                 Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)))
         val title = "Title"
         val description = "Description"
-        val options = setOf(InvitationQuestion("Question1", true))
+        val options = setOf(InvitationQuestion("Question1", true, OptionType.Confirmation))
 
         happening.appendPattern(title, description, options)
 
@@ -95,7 +96,7 @@ class HappeningTest {
                 Period(LocalDateTime.now(), LocalDateTime.now().plusDays(1)), Happening.State.Closed)
         val title = "Title"
         val description = "Description"
-        val options = setOf(InvitationQuestion("Question1", true))
+        val options = setOf(InvitationQuestion("Question1", true, OptionType.Confirmation))
 
         val exception = assertThrows(RuntimeException::class.java) { happening.appendPattern(title, description, options) }
         assertEquals("Invalid state for appending invitation pattern", exception.message)

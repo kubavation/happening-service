@@ -8,6 +8,7 @@ import com.durys.jakub.happeningservice.invitation.domain.InvitationId
 import com.durys.jakub.happeningservice.invitation.domain.InvitationNumber
 import com.durys.jakub.happeningservice.invitation.domain.command.ReplyToInvitationCommand
 import com.durys.jakub.happeningservice.invitation.infrastructure.InMemoryInvitationRepository
+import com.durys.jakub.happeningservice.pattern.InvitationPatternFactory
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -37,8 +38,9 @@ class InvitationApplicationServiceTest {
                 Period(LocalDate.of(2023, 1, 1,).atStartOfDay(),
                         LocalDate.of(2023, 1, 2,).atStartOfDay()), Place("Warsaw"))
         val validTill = LocalDate.now().plusDays(1)
+        val happeningInvitationPattern = InvitationPatternFactory.default("title")
 
-        val invitation = Invitation.create(participantId, happeningNumber, validTill)
+        val invitation = Invitation.create(participantId, happeningNumber, happeningInvitationPattern, validTill)
         invitationRepository.save(invitation)
         return invitation
     }
