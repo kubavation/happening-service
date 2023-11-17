@@ -1,9 +1,9 @@
 package com.durys.jakub.happeningservice.invitation.domain
 
-import com.durys.jakub.happeningservice.sharedkernel.HappeningInvitationPattern
-import com.durys.jakub.happeningservice.sharedkernel.InvitationQuestion
-import com.durys.jakub.happeningservice.sharedkernel.InvitationQuestionId
-import com.durys.jakub.happeningservice.sharedkernel.OptionType
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.InvitationContent
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.InvitationQuestion
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.InvitationQuestionId
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.OptionType
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -17,7 +17,7 @@ class InvitationReplyResolverTest {
         val id1 = InvitationQuestionId(UUID.randomUUID())
         val id2 = InvitationQuestionId(UUID.randomUUID())
 
-        val happeningInvitationPattern = HappeningInvitationPattern("title", "description",
+        val invitationContent = InvitationContent("title", "description",
                 setOf(
                     InvitationQuestion(id1, "Question1", true, OptionType.Confirmation),
                     InvitationQuestion(id2, "Question2", true, OptionType.Other),
@@ -28,7 +28,7 @@ class InvitationReplyResolverTest {
             InvitationAnswer(id2, false),
         )
 
-        val result = InvitationReplyResolver().resolve(answers, happeningInvitationPattern)
+        val result = InvitationReplyResolver().resolve(answers, invitationContent)
 
         assertEquals(true, result.confirmation)
     }
@@ -39,7 +39,7 @@ class InvitationReplyResolverTest {
         val id1 = InvitationQuestionId(UUID.randomUUID())
         val id2 = InvitationQuestionId(UUID.randomUUID())
 
-        val happeningInvitationPattern = HappeningInvitationPattern("title", "description",
+        val invitationContent = InvitationContent("title", "description",
                 setOf(
                         InvitationQuestion(id1, "Question1", true, OptionType.Confirmation),
                         InvitationQuestion(id2, "Question2", true, OptionType.Other),
@@ -50,7 +50,7 @@ class InvitationReplyResolverTest {
                 InvitationAnswer(id2, false),
         )
 
-        val result = InvitationReplyResolver().resolve(answers, happeningInvitationPattern)
+        val result = InvitationReplyResolver().resolve(answers, invitationContent)
 
         assertEquals(false, result.confirmation)
     }
