@@ -1,12 +1,11 @@
 package com.durys.jakub.happeningservice.happening.application
 
-import com.durys.jakub.happeningservice.content.InvitationOption
+import com.durys.jakub.happeningservice.sharedkernel.InvitationOption
 import com.durys.jakub.happeningservice.events.DomainEventPublisher
 import com.durys.jakub.happeningservice.happening.domain.Happening
 import com.durys.jakub.happeningservice.happening.domain.HappeningId
 import com.durys.jakub.happeningservice.happening.domain.Period
 import com.durys.jakub.happeningservice.happening.domain.Place
-import com.durys.jakub.happeningservice.happening.domain.command.*
 import com.durys.jakub.happeningservice.happening.domain.command.AppendInvitationPatternCommand
 import com.durys.jakub.happeningservice.happening.domain.command.ArchiveHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.CloseHappeningCommand
