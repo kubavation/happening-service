@@ -1,18 +1,18 @@
 package com.durys.jakub.happeningservice.happening.application
 
-import com.durys.jakub.happeningservice.content.InvitationOption
+import com.durys.jakub.happeningservice.sharedkernel.InvitationQuestion
 import com.durys.jakub.happeningservice.events.DomainEventPublisher
 import com.durys.jakub.happeningservice.happening.domain.Happening
 import com.durys.jakub.happeningservice.happening.domain.HappeningId
 import com.durys.jakub.happeningservice.happening.domain.Period
 import com.durys.jakub.happeningservice.happening.domain.Place
-import com.durys.jakub.happeningservice.happening.domain.command.*
 import com.durys.jakub.happeningservice.happening.domain.command.AppendInvitationPatternCommand
 import com.durys.jakub.happeningservice.happening.domain.command.ArchiveHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.CloseHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.InitiateHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.OpenHappeningCommand
 import com.durys.jakub.happeningservice.happening.infrastructure.InMemoryHappeningRepository
+import com.durys.jakub.happeningservice.sharedkernel.OptionType
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -104,7 +104,7 @@ class HappeningApplicationServiceTest {
         happeningRepository.save(happening)
 
         happeningApplicationService.handle(AppendInvitationPatternCommand(happening.id(), "Title",
-                "Description", setOf(InvitationOption("Question1", true))))
+                "Description", setOf(InvitationQuestion("Question1", true, OptionType.Confirmation))))
 
 
         val loaded = happeningRepository.load(happening.id())

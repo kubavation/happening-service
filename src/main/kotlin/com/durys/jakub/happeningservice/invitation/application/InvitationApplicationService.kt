@@ -12,7 +12,7 @@ internal class InvitationApplicationService(private val invitationRepository: In
 
         val invitation = invitationRepository.load(command.number)
 
-        invitation.reply(command.confirmation)
+        invitation.reply(command.answers)
     }
 
 }

@@ -17,7 +17,7 @@ internal class HappeningOpenedEventHandler(private val invitationRepository: InM
         val validTo = event.validTo
 
         event.participants
-                .map { Invitation.create(it, happeningNumber, validTo) }
+                .map { Invitation.create(it, happeningNumber,  event.invitationPattern, validTo) }
                 .forEach { invitationRepository.save(it) }
 
     }

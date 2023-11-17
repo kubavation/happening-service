@@ -3,6 +3,8 @@ package com.durys.jakub.happeningservice.invitation.domain
 import com.durys.jakub.happeningservice.happening.domain.HappeningNumber
 import com.durys.jakub.happeningservice.happening.domain.Period
 import com.durys.jakub.happeningservice.happening.domain.Place
+import com.durys.jakub.happeningservice.pattern.InvitationPatternFactory
+import com.durys.jakub.happeningservice.sharedkernel.OptionType
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test
@@ -18,8 +20,9 @@ class InvitationTest {
                 Period(LocalDate.of(2023, 1, 1,).atStartOfDay(),
                         LocalDate.of(2023, 1, 2,).atStartOfDay()), Place("Warsaw"))
         val validTill = LocalDate.now()
+        val happeningInvitationPattern = InvitationPatternFactory.default("title")
 
-        val invitation = Invitation.create(participantId, happeningNumber, validTill)
+        val invitation = Invitation.create(participantId, happeningNumber, happeningInvitationPattern, validTill)
 
         assertEquals(InvitationId(participantId, happeningNumber), invitation.id())
     }
@@ -32,10 +35,19 @@ class InvitationTest {
                 Period(LocalDate.of(2023, 1, 1,).atStartOfDay(),
                         LocalDate.of(2023, 1, 2,).atStartOfDay()), Place("Warsaw"))
         val validTill = LocalDate.now().plusDays(2)
+        val happeningInvitationPattern = InvitationPatternFactory.default("title")
 
-        val invitation = Invitation.create(participantId, happeningNumber, validTill)
+        val confirmationOption = happeningInvitationPattern.options.find { it.type == OptionType.Confirmation }!!
 
-        assertDoesNotThrow { invitation.reply(true) }
+        val invitation = Invitation.create(participantId, happeningNumber, happeningInvitationPattern, validTill)
+
+        assertDoesNotThrow {
+            invitation.reply(
+                    setOf(
+                        InvitationAnswer(confirmationOption.id, true)
+                    )
+            )
+        }
         assertTrue(invitation.confirmation())
     }
 
@@ -47,10 +59,11 @@ class InvitationTest {
                 Period(LocalDate.of(2023, 1, 1,).atStartOfDay(),
                         LocalDate.of(2023, 1, 2,).atStartOfDay()), Place("Warsaw"))
         val validTill = LocalDate.now().minusDays(1)
+        val happeningInvitationPattern = InvitationPatternFactory.default("title")
 
-        val invitation = Invitation.create(participantId, happeningNumber, validTill)
+        val invitation = Invitation.create(participantId, happeningNumber, happeningInvitationPattern, validTill)
 
-        val exception = assertThrows(RuntimeException::class.java) { invitation.reply(true) }
+        val exception = assertThrows(RuntimeException::class.java) { invitation.reply(emptySet()) }
         assertEquals("Cannot reply to this invitation", exception.message);
     }
 
@@ -62,8 +75,9 @@ class InvitationTest {
                 Period(LocalDate.of(2023, 1, 1,).atStartOfDay(),
                         LocalDate.of(2023, 1, 2,).atStartOfDay()), Place("Warsaw"))
         val validTill = LocalDate.now().plusDays(2)
+        val happeningInvitationPattern = InvitationPatternFactory.default("title")
 
-        val invitation = Invitation.create(participantId, happeningNumber, validTill)
+        val invitation = Invitation.create(participantId, happeningNumber, happeningInvitationPattern, validTill)
         val closedAt = LocalDate.of(2023, 1, 1)
 
         invitation.close(closedAt)
