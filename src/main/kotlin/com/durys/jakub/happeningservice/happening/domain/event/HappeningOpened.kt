@@ -1,8 +1,7 @@
 package com.durys.jakub.happeningservice.happening.domain.event
 
 import com.durys.jakub.happeningservice.events.DomainEvent
-import com.durys.jakub.happeningservice.happening.domain.HappeningId
-import com.durys.jakub.happeningservice.happening.domain.HappeningInvitationPattern
+import com.durys.jakub.happeningservice.pattern.HappeningInvitationPattern
 import com.durys.jakub.happeningservice.happening.domain.HappeningNumber
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import java.time.Instant

@@ -1,9 +1,11 @@
 package com.durys.jakub.happeningservice.happening.domain
 
-import com.durys.jakub.happeningservice.content.InvitationOption
+import com.durys.jakub.happeningservice.sharedkernel.InvitationOption
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningArchived
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningClosed
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningOpened
+import com.durys.jakub.happeningservice.pattern.InvitationPatternFactory
+import com.durys.jakub.happeningservice.sharedkernel.HappeningInvitationPattern
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import java.time.Instant
 import java.time.LocalDate
@@ -12,7 +14,7 @@ import java.util.*
 
 internal class Happening(private val id: HappeningId, private val place: Place, private val period: Period,
                          private val happeningNumber: HappeningNumber,
-                         private var invitationPattern: HappeningInvitationPattern?,
+                         private var invitationPattern: HappeningInvitationPattern,
                          private var state: State = State.New) {
 
     private var openTill: LocalDate? = null
@@ -26,7 +28,7 @@ internal class Happening(private val id: HappeningId, private val place: Place, 
     }
 
     constructor(id: HappeningId, place: Place, period: Period, state: State = State.New)
-            : this(id, place, period, HappeningNumber(period, place), null, state)
+            : this(id, place, period, HappeningNumber(period, place), InvitationPatternFactory.default(place.name), state)
 
 
     fun appendPattern(title: String, description: String, options: Set<InvitationOption>) {
