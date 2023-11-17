@@ -1,7 +1,7 @@
 package com.durys.jakub.happeningservice.invitation.domain
 
-import com.durys.jakub.happeningservice.sharedkernel.InvitationContent
-import com.durys.jakub.happeningservice.sharedkernel.OptionType
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.InvitationContent
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.OptionType
 
 internal class InvitationReplyResolver {
 

@@ -1,6 +1,6 @@
 package com.durys.jakub.happeningservice.happening.application
 
-import com.durys.jakub.happeningservice.sharedkernel.InvitationQuestion
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.InvitationQuestion
 import com.durys.jakub.happeningservice.events.DomainEventPublisher
 import com.durys.jakub.happeningservice.happening.domain.Happening
 import com.durys.jakub.happeningservice.happening.domain.HappeningId
@@ -12,7 +12,7 @@ import com.durys.jakub.happeningservice.happening.domain.command.CloseHappeningC
 import com.durys.jakub.happeningservice.happening.domain.command.InitiateHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.OpenHappeningCommand
 import com.durys.jakub.happeningservice.happening.infrastructure.InMemoryHappeningRepository
-import com.durys.jakub.happeningservice.sharedkernel.OptionType
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.OptionType
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

@@ -9,7 +9,7 @@ import com.durys.jakub.happeningservice.invitation.domain.InvitationNumber
 import com.durys.jakub.happeningservice.invitation.domain.command.ReplyToInvitationCommand
 import com.durys.jakub.happeningservice.invitation.infrastructure.InMemoryInvitationRepository
 import com.durys.jakub.happeningservice.pattern.InvitationPatternFactory
-import com.durys.jakub.happeningservice.sharedkernel.OptionType
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.OptionType
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

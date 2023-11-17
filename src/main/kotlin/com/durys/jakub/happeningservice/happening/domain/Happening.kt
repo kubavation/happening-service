@@ -1,11 +1,11 @@
 package com.durys.jakub.happeningservice.happening.domain
 
-import com.durys.jakub.happeningservice.sharedkernel.InvitationQuestion
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.InvitationQuestion
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningArchived
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningClosed
 import com.durys.jakub.happeningservice.happening.domain.event.HappeningOpened
 import com.durys.jakub.happeningservice.pattern.InvitationPatternFactory
-import com.durys.jakub.happeningservice.sharedkernel.InvitationContent
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.InvitationContent
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import java.time.Instant
 import java.time.LocalDate

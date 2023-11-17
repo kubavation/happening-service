@@ -1,8 +1,8 @@
 package com.durys.jakub.happeningservice.happening
 
-import com.durys.jakub.happeningservice.sharedkernel.InvitationQuestion
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.InvitationQuestion
 import com.durys.jakub.happeningservice.happening.domain.*
-import com.durys.jakub.happeningservice.sharedkernel.OptionType
+import com.durys.jakub.happeningservice.sharedkernel.invitation.content.OptionType
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

@@ -1,4 +1,4 @@
-package com.durys.jakub.happeningservice.sharedkernel
+package com.durys.jakub.happeningservice.sharedkernel.invitation.content
 
 import java.util.UUID
 
@@ -36,5 +36,7 @@ internal data class InvitationQuestion(val id: InvitationQuestionId, val questio
 
 internal enum class OptionType {
     Confirmation,
+    Boolean,
+    
     Other
 }
