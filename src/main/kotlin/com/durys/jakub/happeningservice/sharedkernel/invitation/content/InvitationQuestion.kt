@@ -27,6 +27,5 @@ internal enum class OptionType {
     Select,
     Text,
     Number,
-    Other;
-
+    Other
 }
