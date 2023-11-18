@@ -1,6 +1,7 @@
 package com.durys.jakub.happeningservice.happening.infrastructure
 
 import com.durys.jakub.happeningservice.happening.domain.HappeningRepository
+import com.durys.jakub.happeningservice.happening.infrastructure.query.HappeningQueryRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -8,5 +9,11 @@ import org.springframework.context.annotation.Configuration
 internal class HappeningConfiguration {
 
     @Bean
-    fun happeningRepository(): HappeningRepository = InMemoryHappeningRepository()
+    fun dataSource() = InMemoryDataSource()
+
+    @Bean
+    fun happeningRepository(dataSource: InMemoryDataSource): HappeningRepository = InMemoryHappeningRepository(dataSource)
+
+    @Bean
+    fun happeningQueryRepository(dataSource: InMemoryDataSource) = HappeningQueryRepository(dataSource)
 }

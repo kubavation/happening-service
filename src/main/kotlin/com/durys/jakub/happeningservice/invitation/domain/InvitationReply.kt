@@ -4,4 +4,4 @@ import com.durys.jakub.happeningservice.sharedkernel.invitation.content.Invitati
 
 internal data class InvitationReply(val confirmation: Boolean, val answers: Set<InvitationAnswer>)
 
-internal data class InvitationAnswer(val questionId: InvitationQuestionId, val answer: Boolean)
+internal data class InvitationAnswer(val questionId: InvitationQuestionId, val answer: String)

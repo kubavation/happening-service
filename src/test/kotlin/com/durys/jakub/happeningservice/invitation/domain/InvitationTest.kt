@@ -44,7 +44,7 @@ class InvitationTest {
         assertDoesNotThrow {
             invitation.reply(
                     setOf(
-                        InvitationAnswer(confirmationOption.id, true)
+                        InvitationAnswer(confirmationOption.id, "true")
                     )
             )
         }

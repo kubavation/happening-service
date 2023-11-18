@@ -11,6 +11,7 @@ import com.durys.jakub.happeningservice.happening.domain.command.ArchiveHappenin
 import com.durys.jakub.happeningservice.happening.domain.command.CloseHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.InitiateHappeningCommand
 import com.durys.jakub.happeningservice.happening.domain.command.OpenHappeningCommand
+import com.durys.jakub.happeningservice.happening.infrastructure.InMemoryDataSource
 import com.durys.jakub.happeningservice.happening.infrastructure.InMemoryHappeningRepository
 import com.durys.jakub.happeningservice.sharedkernel.invitation.content.OptionType
 import com.durys.jakub.happeningservice.sharedkernel.ParticipantId
@@ -26,7 +27,7 @@ import java.util.*
 
 class HappeningApplicationServiceTest {
 
-    private val happeningRepository = InMemoryHappeningRepository()
+    private val happeningRepository = InMemoryHappeningRepository(InMemoryDataSource())
     private val eventsPublisher = Mockito.mock(DomainEventPublisher::class.java)
     private val happeningApplicationService = HappeningApplicationService(happeningRepository, eventsPublisher)
 

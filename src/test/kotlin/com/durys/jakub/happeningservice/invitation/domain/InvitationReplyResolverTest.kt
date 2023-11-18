@@ -24,8 +24,8 @@ class InvitationReplyResolverTest {
                 ))
 
         val answers = setOf(
-            InvitationAnswer(id1, true),
-            InvitationAnswer(id2, false),
+            InvitationAnswer(id1, "true"),
+            InvitationAnswer(id2, "false"),
         )
 
         val result = InvitationReplyResolver().resolve(answers, invitationContent)
@@ -46,8 +46,8 @@ class InvitationReplyResolverTest {
                 ))
 
         val answers = setOf(
-                InvitationAnswer(id1, false),
-                InvitationAnswer(id2, false),
+                InvitationAnswer(id1, "false"),
+                InvitationAnswer(id2, "false"),
         )
 
         val result = InvitationReplyResolver().resolve(answers, invitationContent)
