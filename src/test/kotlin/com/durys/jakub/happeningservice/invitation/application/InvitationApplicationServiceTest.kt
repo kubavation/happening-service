@@ -33,7 +33,7 @@ class InvitationApplicationServiceTest {
 
         val command = ReplyToInvitationCommand(InvitationNumber(invitation.number()),
                 setOf(
-                    InvitationAnswer(confirmationQuestion.id, true)
+                    InvitationAnswer(confirmationQuestion.id, "true")
                 ))
 
 
